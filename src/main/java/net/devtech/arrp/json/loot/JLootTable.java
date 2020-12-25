@@ -1,5 +1,7 @@
 package net.devtech.arrp.json.loot;
 
+import net.minecraft.util.Identifier;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,19 +12,37 @@ public class JLootTable implements Cloneable {
 	/**
 	 * @see JLootTable#loot(String)
 	 */
-	public JLootTable(String type) {this.type = type;}
+	public JLootTable(String type) {
+		this.type = type;
+	}
 
 	public static JLootTable loot(String type) {
 		return new JLootTable(type);
 	}
 
+	/**
+	 * Creates a new JEntry.
+	 *
+	 * @return a new entry.
+	 * @deprecated see {@link JLootTable#entry(Identifier)}
+	 */
+	@Deprecated
 	public static JEntry entry() {
 		return new JEntry();
 	}
 
 	/**
-	 * @deprecated unintuitive name
-	 * @see #predicate(String)
+	 * Creates a new JEntry.
+	 *
+	 * @return a new entry.
+	 */
+	public static JEntry entry(Identifier type) {
+		return new JEntry(type);
+	}
+
+	/**
+	 * @deprecated unintuitive name, and uses {@link String} instead of {@link Identifier} - use {@link
+	 * #predicate(String)}
 	 */
 	@Deprecated
 	public static JCondition condition(String condition) {
@@ -30,13 +50,44 @@ public class JLootTable implements Cloneable {
 	}
 
 	/**
+	 * Creates a new condition with a predicate
+	 *
 	 * @param condition the predicate's condition identifier
+	 * @deprecated use {@link #predicate(Identifier)}
 	 */
+	@Deprecated
 	public static JCondition predicate(String condition) {
 		return new JCondition(condition);
 	}
 
+	/**
+	 * Creates a new condition with a predicate
+	 *
+	 * @param condition the predicate's condition identifier
+	 */
+	public static JCondition predicate(Identifier condition) {
+		return new JCondition(condition);
+	}
+
+	/**
+	 * Adds a function.
+	 *
+	 * @param function the name of the function.
+	 * @return the new function.
+	 * @deprecated use {@link #function(Identifier)} instead.
+	 */
+	@Deprecated
 	public static JFunction function(String function) {
+		return new JFunction(function);
+	}
+
+	/**
+	 * Adds a function.
+	 *
+	 * @param function the name of the function.
+	 * @return the new function.
+	 */
+	public static JFunction function(Identifier function) {
 		return new JFunction(function);
 	}
 

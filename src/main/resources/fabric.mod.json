@@ -11,7 +11,7 @@
     "sources": "https://github.com/Devan-Kerman/RRP"
   },
   "license": "MPLv2",
-  "icon": "assets/stated/icon.png",
+  "icon": "resource/pack.png",
   "environment": "*",
   "entrypoints": {
     "preLaunch": [
@@ -21,6 +21,7 @@
   "mixins": [
     "arrp.mixins.json"
   ],
+  "accessWidener": "arrp.accessWidener",
   "depends": {
     "fabricloader": ">=0.8.8+build.202",
     "minecraft": ">=1.16.1"

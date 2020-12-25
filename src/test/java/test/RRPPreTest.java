@@ -7,8 +7,14 @@ import net.devtech.arrp.json.blockstate.JState;
 import net.devtech.arrp.json.blockstate.JVariant;
 import net.devtech.arrp.json.blockstate.JWhen;
 import net.devtech.arrp.json.lang.JLang;
+import net.devtech.arrp.json.loot.JEntry;
+import net.devtech.arrp.json.loot.JLootTable;
 import net.devtech.arrp.json.models.JModel;
 import net.devtech.arrp.json.models.JTextures;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.predicate.NumberRange;
+import net.minecraft.predicate.item.EnchantmentPredicate;
+import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 
@@ -31,10 +37,31 @@ public class RRPPreTest {
 
         JLang lang = JLang.lang().allPotionOf(new Identifier("mod_id", "potion_id"), "Example");
 
-        //System.out.println(gson.toJson(iron_block));
-        //System.out.println(gson.toJson(oak_fence));
-        System.out.println(gson.toJson(model));
+        JLootTable silkTouch = new JLootTable("minecraft:block")
+                .pool(JLootTable.pool()
+                        .rolls(1)
+                        .entry(new JEntry(new Identifier("minecraft:alternatives"))
+                                .child(new JEntry(new Identifier("minecraft:item"))
+                                        .condition(JLootTable.predicate(
+                                                new Identifier("minecraft:match_tool"))
+                                                .matchTool(ItemPredicate.Builder.create()
+                                                        .enchantment(new EnchantmentPredicate(
+                                                                Enchantments.SILK_TOUCH,
+                                                                NumberRange.IntRange.atLeast(1)))
+                                                        .build()
+                                                ))
+                                        .name(new Identifier("minecraft:iron_ingot"))
+                                )
+                                .child(new JEntry(new Identifier("minecraft:item"))
+                                        .function(JLootTable.function(new Identifier("minecraft:explosion_decay")))
+                                        .function(JLootTable.function(new Identifier("minecraft:apply_bonus"))
+                                                .add("enchantment", "minecraft:fortune")
+                                                .add("formula", "minecraft:ore_drops"))
+                                        .name(new Identifier("minecraft:iron_nugget"))
+                                )
+                        ).condition(JLootTable.predicate(new Identifier("minecraft:survives_explosion")))
+                );
 
-        System.out.println(gson.toJson(lang));
+        System.out.println(gson.toJson(silkTouch));
     }
 }

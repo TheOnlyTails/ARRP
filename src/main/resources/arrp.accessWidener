@@ -1,0 +1,4 @@
+accessWidener v1 named
+accessible class net/minecraft/loot/function/SetAttributesLootFunction$Attribute
+accessible class net/minecraft/loot/function/ApplyBonusLootFunction$Formula
+accessible class net/minecraft/loot/function/CopyNbtLootFunction$Operation

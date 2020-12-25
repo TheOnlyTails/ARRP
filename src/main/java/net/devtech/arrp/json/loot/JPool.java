@@ -1,13 +1,13 @@
 package net.devtech.arrp.json.loot;
 
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JPool implements Cloneable {
 	private List<JCondition> conditions;
@@ -80,15 +80,6 @@ public class JPool implements Cloneable {
 		@Override
 		public JsonElement serialize(JPool src, Type typeOfSrc, JsonSerializationContext context) {
 			JsonObject obj = new JsonObject();
-			if (src.conditions != null) {
-				obj.add("conditions", context.serialize(src.conditions));
-			}
-			if (src.functions != null) {
-				obj.add("functions", context.serialize(src.functions));
-			}
-			if (src.entries != null) {
-				obj.add("entries", context.serialize(src.entries));
-			}
 			if (src.rolls != null) {
 				obj.addProperty("rolls", src.rolls);
 			}
@@ -100,6 +91,15 @@ public class JPool implements Cloneable {
 			}
 			if (src.bonus_rolls != null) {
 				obj.addProperty("bonus_rolls", src.bonus_rolls);
+			}
+			if (src.entries != null) {
+				obj.add("entries", context.serialize(src.entries));
+			}
+			if (src.functions != null) {
+				obj.add("functions", context.serialize(src.functions));
+			}
+			if (src.conditions != null) {
+				obj.add("conditions", context.serialize(src.conditions));
 			}
 			return obj;
 		}
